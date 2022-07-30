@@ -5,30 +5,24 @@ import React, { useState, useEffect } from 'react';
 
 function App() {
 
+  const [beers, setBeers] = useState({"left": "..."})
+
   useEffect(() => {
-    setInterval(() => {
+    const interval = setInterval(() => {
       fetch("https://api.enriquegomez.me/beers/")
-      .then(data => {
-        console.log(data)
-      })
+      .then((response) => response.json())
+      .then((data) => setBeers(data))
+      .catch((error) => console.log(error))
     }, 1000)
+
+    return () => clearInterval(interval);
   });
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <span style={{fontSize: "50px"}}>Cervezas restantes</span>
+        <span style={{fontSize: "80px"}}>{beers["left"]}</span>
       </header>
     </div>
   );
