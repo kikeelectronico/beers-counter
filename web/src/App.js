@@ -1,7 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
 
+import React, { useState, useEffect } from 'react';
+
 function App() {
+
+  useEffect(() => {
+    setInterval(() => {
+      fetch("https://api.enriquegomez.me/beers/")
+      .then(data => {
+        console.log(data)
+      })
+    }, 1000)
+  });
+
   return (
     <div className="App">
       <header className="App-header">
